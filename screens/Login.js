@@ -1,25 +1,15 @@
-import React, {useState, useRef} from 'react';
+import React, {useState, useRef, useContext} from 'react';
 import { TextInput, StyleSheet, View, Button, Pressable } from "react-native";
-import AuthContext from '../contexts/auth';
+import { AuthContext } from '../App'
 
 var storage = localStorage;
-
-async function signIn(user, psw){
-    console.log('Logged');
-    let request;
-    await axios.post('https://desafio.pontue.com.br/auth/login', {
-        email: user,
-        password: psw
-    }).then(response => response.data)
-    .then(data => localStorage.setItem('access_token', JSON.stringify(data['access_token'])))
-    .catch(err => request = 'error');
-}
 
 export default function Login(props){
     const [inFocus, setFocus] = useState(false);
     const [inPSWFocus, setPSWFocus] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const { signIn } = useContext(AuthContext);
 
     return(
         <View style={styles.container}>
