@@ -58,15 +58,16 @@ export default function App({navigation}) {
         })
         .catch(err => request = 'error');
 
-        dispatch({ type: 'SIGN_IN', token: await localStorage('access_token') });
+        dispatch({ type: 'SIGN_IN', token: await localStorage.getItem('access_token') });
       },
-      signOut: () => dispatch({ type: 'SIGN_OUT' }),
+      signOut: () => {
+        localStorage.clear();
+        dispatch({ type: 'SIGN_OUT' })},
     }),
     []
   );
 
   React.useEffect(() => {
-    // Fetch the token from storage then navigate to our appropriate place
     const bootstrapAsync = async () => {
       let userToken;
 
@@ -75,11 +76,6 @@ export default function App({navigation}) {
       } catch (e) {
         console.log('Error on restore Token');
       }
-
-      // After restoring token, we may need to validate it in production apps
-
-      // This will switch to the App screen or Auth screen and this loading
-      // screen will be unmounted and thrown away.
       dispatch({ type: 'RESTORE_TOKEN', token: userToken });
     };
 
@@ -100,7 +96,15 @@ export default function App({navigation}) {
           <Stack.Navigator>
           {state.userToken != null ? (
             <>
-            <Stack.Screen name="Home" component={HistoricoRelatorios}></Stack.Screen>
+            <Stack.Screen 
+              name="Home" 
+              component={HistoricoRelatorios}
+              options={{
+                headerRight: (props)=>(
+
+                  <View style={{marginRight: 10}}><Button title='Sair' color='#CF007F' onPress={()=>{authContext.signOut()}}/></View>)
+
+              }}></Stack.Screen>
             <Stack.Screen name="RelatorioUsuario" component={RelatorioUsuario}></Stack.Screen>
             </>
             )
