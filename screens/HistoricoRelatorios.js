@@ -62,12 +62,12 @@ export default function HistoricoRelatorios(props){
                 pagination
                 fixedHeader
                 fixedHeaderScrollHeight
-                onRowClicked={(row)=>{props.navigation.navigate('RelatorioUsuario', {redacaoId:row.id})}}
+                onRowClicked={(row)=>{props.navigation.navigate('Redação', {redacaoId:row.id})}}
                 >
             </DataTable>
         );
     }
-
+    
     if(inLoading){
         return(
             <View style={styles.container}>

@@ -1,8 +1,6 @@
 import React, {useState, useRef, useContext} from 'react';
-import { TextInput, StyleSheet, View, Button, Pressable } from "react-native";
+import { TextInput, StyleSheet, View, Button, Pressable, Platform } from "react-native";
 import { AuthContext } from '../App'
-
-var storage = localStorage;
 
 export default function Login(props){
     const [inFocus, setFocus] = useState(false);
@@ -15,7 +13,7 @@ export default function Login(props){
         <View style={styles.container}>
             <View style={styles.wrapper}>
                 <TextInput
-                    style={[styles.input, inFocus ? styles.inputOnFocus : '']}
+                    style={[styles.input, inFocus ? styles.inputOnFocus : '', {...Platform.select({web:{outlineColor: 'transparent'}})}]}
                     placeholder="Email"
                     onBlur={()=>setFocus(false)}
                     onFocus={()=>setFocus(true)}
@@ -23,7 +21,7 @@ export default function Login(props){
                     onChangeText={text=>setEmail(text)}
                     ></TextInput>
                     <TextInput
-                    style={[styles.input, inPSWFocus ? styles.inputOnFocus : '']}
+                    style={[styles.input, inPSWFocus ? styles.inputOnFocus : '', {...Platform.select({web:{outlineColor: 'transparent'}})}]}
                     placeholder="Senha"
                     onBlur={()=>setPSWFocus(false)}
                     onFocus={()=>setPSWFocus(true)}
@@ -50,7 +48,6 @@ const styles = StyleSheet.create({
         borderTopStartRadius: 4,
         padding: 10,
         margin: 5,
-        outlineColor: 'transparent'
     },
     inputOnFocus:{
         borderBottomColor: '#CF007F'

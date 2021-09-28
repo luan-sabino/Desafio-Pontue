@@ -1,14 +1,18 @@
 import * as React from 'react';
-import { Modal, StyleSheet, Text, View, Button } from 'react-native';
+import { Modal, StyleSheet, Text, View, Button, Image } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Login from './screens/Login';
 import HistoricoRelatorios from './screens/HistoricoRelatorios';
+import AdicionarRedacao from './screens/AdicionarRedacao'
 import { ActivityIndicator } from 'react-native-paper';
 import RelatorioUsuario from './screens/RelatorioUsuario';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import axios from 'axios';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const Stack = createNativeStackNavigator();
+const Tab = createMaterialBottomTabNavigator();
 export const AuthContext = React.createContext();
 
 export default function App({navigation}) {
@@ -81,6 +85,17 @@ export default function App({navigation}) {
 
     bootstrapAsync();
   }, []);
+
+  function Hub(){
+    return(
+      <Tab.Navigator>
+        <Tab.Screen name="Historico" options={{tabBarIcon: 'text-box-multiple-outline', title:"Historico"}} component={HistoricoRelatorios}></Tab.Screen>
+        <Tab.Screen name="Criar" component={AdicionarRedacao} options={{tabBarIcon: 'file-plus-outline', title:"Criar"}}></Tab.Screen>
+        <Tab.Screen name="Atualizar" component={HistoricoRelatorios}></Tab.Screen>
+        <Tab.Screen name="Deletar" component={HistoricoRelatorios}></Tab.Screen>
+      </Tab.Navigator>
+    )
+  }
   
   if(state.isLoading){
     return(
@@ -96,16 +111,16 @@ export default function App({navigation}) {
           <Stack.Navigator>
           {state.userToken != null ? (
             <>
-            <Stack.Screen 
-              name="Home" 
-              component={HistoricoRelatorios}
-              options={{
-                headerRight: (props)=>(
+              <Stack.Screen 
+                  name="Hub" 
+                  component={Hub}
+                  options={{
+                    headerTitle: ()=>(<Image style={{width:100, height:100, resizeMode: 'contain'}} source={require('./img/pontue.png')}></Image>),
+                    headerRight: (props)=>(
+                      <View style={{marginRight: 10}}><Button title='Sair' color='#CF007F' onPress={()=>{authContext.signOut()}}/></View>)
 
-                  <View style={{marginRight: 10}}><Button title='Sair' color='#CF007F' onPress={()=>{authContext.signOut()}}/></View>)
-
-              }}></Stack.Screen>
-            <Stack.Screen name="RelatorioUsuario" component={RelatorioUsuario}></Stack.Screen>
+                  }}></Stack.Screen>
+            <Stack.Screen name="Redação" component={RelatorioUsuario}></Stack.Screen>
             </>
             )
           :(
