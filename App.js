@@ -5,7 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { ActivityIndicator } from 'react-native-paper';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import HistoricoRelatorios from './screens/HistoricoRelatorios';
+import HistoricoRedacao from './screens/HistoricoRedacao';
 import AdicionarRedacao from './screens/AdicionarRedacao'
 import RelatorioUsuario from './screens/RelatorioUsuario';
 import AtualizarRedacao from './screens/AtualizarRedacao';
@@ -91,7 +91,7 @@ export default function App({navigation}) {
   function Hub(){
     return(
       <Tab.Navigator shifting={true}>
-        <Tab.Screen name="Historico" options={{tabBarIcon: 'text-box-multiple-outline', title:"Historico", tabBarColor:'rgb(209,3,127)'}} component={HistoricoRelatorios}></Tab.Screen>
+        <Tab.Screen name="Historico" options={{tabBarIcon: 'text-box-multiple-outline', title:"Historico", tabBarColor:'rgb(209,3,127)'}} component={HistoricoRedacao}></Tab.Screen>
         <Tab.Screen name="Criar" options={{tabBarIcon: 'file-plus-outline', title:"Criar", tabBarColor:'rgb(138,2,126)'}} component={AdicionarRedacao}></Tab.Screen>
         <Tab.Screen name="Atualizar" options={{tabBarIcon: 'file-refresh-outline', title:"Atualizar", tabBarColor:'rgb(86,1,125)'}} component={AtualizarRedacao}></Tab.Screen>
         <Tab.Screen name="Deletar" options={{tabBarIcon: 'close', title:"Excluir", tabBarColor:'rgb(46,1,124)'}} component={ExcluirRedacao}></Tab.Screen>

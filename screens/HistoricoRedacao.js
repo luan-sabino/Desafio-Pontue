@@ -1,10 +1,11 @@
 import { ActivityIndicator } from 'react-native-paper';
+import { RFValue } from "react-native-responsive-fontsize";
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View } from "react-native";
 import axios from 'axios';
 import DataTable from "react-data-table-component";
 
-export default function HistoricoRelatorios(props){
+export default function HistoricoRedacao(props){
 
     const [tableItems, setTableItems] = useState(null);
     const [inLoading, setLoadingState] = useState(true);
@@ -51,7 +52,7 @@ export default function HistoricoRelatorios(props){
 
     function renderTableWithContent(){
         return(
-            <DataTable
+            <DataTable 
                 title="Redações"
                 columns={columns}
                 data={Object.values(tableItems)}
@@ -59,6 +60,7 @@ export default function HistoricoRelatorios(props){
                 pagination
                 fixedHeader
                 fixedHeaderScrollHeight
+                customStyles={customStyles}
                 onRowClicked={(row)=>{props.navigation.navigate('Redação', {redacaoId:row.id})}}
                 >
             </DataTable>
@@ -86,5 +88,32 @@ const styles = StyleSheet.create({
         backgroundColor: '#EFEEF4',
         alignItems: 'center',
         justifyContent: 'center',
-      }
+      },
+    text:{
+        fontFamily: 'Segoe UI',
+        fontSize: RFValue(12, 980)
+    }
 });
+
+const customStyles = {
+    rows:{
+        style:{
+            fontFamily: 'Segoe UI',
+        }
+    },
+    header:{
+        style:{
+            fontFamily: 'Segoe UI',
+        }
+    },
+    headCells:{
+        style:{
+            fontFamily: 'Segoe UI',
+        }
+    },
+    pagination:{
+        style:{
+            fontFamily: 'Segoe UI',
+        }
+    }
+}

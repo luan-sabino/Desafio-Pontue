@@ -96,6 +96,8 @@ const styles = StyleSheet.create({
         borderRadius: 7,
         alignItems: 'center',
         justifyContent: 'space-evenly',
+        textAlign: 'center',
+        paddingVertical: 20,
     },
     button:{
         borderRadius: 4,

@@ -50,7 +50,6 @@ export default function ExcluirRedacao(){
                             return (<Picker.Item label={row.numero.toString()} value={row.id} key={row.id}/>)
                         })}
                 </Picker>
-                <Text style={styles.text}>Selecione o arquivo para enviar</Text>
                 <TouchableOpacity style={styles.button} onPress={()=>excluirRedacao(selectedRedacao)}>
                     <Text style={[styles.text, {fontWeight: 'bold', color:'#FFFFFF'}]}>DELETAR</Text>
                 </TouchableOpacity>
@@ -74,6 +73,8 @@ const styles = StyleSheet.create({
         borderRadius: 7,
         alignItems: 'center',
         justifyContent: 'space-evenly',
+        textAlign: 'center',
+        paddingVertical: 20,
     },
     button:{
         flexDirection: 'row',
