@@ -1,5 +1,5 @@
-import React, {useState, useRef, useContext} from 'react';
-import { TextInput, StyleSheet, View, Button, Pressable, Platform } from "react-native";
+import React, {useState, useContext} from 'react';
+import { TextInput, StyleSheet, View, Button, Platform } from "react-native";
 import { AuthContext } from '../App'
 
 export default function Login(props){

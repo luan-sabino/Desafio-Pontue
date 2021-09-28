@@ -1,18 +1,20 @@
-import axios from 'axios';
-import React, { useState, useRef, useEffect } from 'react';
 import { StyleSheet, TouchableOpacity, View, Text, Platform } from "react-native";
-import { ActivityIndicator, Button } from 'react-native-paper';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
+import { ActivityIndicator } from 'react-native-paper';
+import React, { useState } from 'react';
+import { RFValue } from "react-native-responsive-fontsize";
 import { Picker } from '@react-native-picker/picker';
+import axios from 'axios';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import * as DocumentPicker from 'expo-document-picker';
 
 export default function AtualizarRedacao(){
-
+    
+    const [inLoading, setLoadingState] = useState(false);
+    const [singleFile, setSingleFile] = useState('');
+    const [selectedRedacao, setSelectedRedacao] = useState();
+    
     var redacoes = JSON.parse(localStorage.getItem('redacoes'));
 
-    const [inLoading, setLoadingState] = useState(false);
-    
     const createFormData = async(file) => {
         const data = new FormData();
         await data.append("urls[]", selectedRedacao);
@@ -24,9 +26,6 @@ export default function AtualizarRedacao(){
         });
         return data;
       };
-    
-    const [singleFile, setSingleFile] = useState('');
-    const [selectedRedacao, setSelectedRedacao] = useState();
 
     const selectSingleFile = async ()=>{
         try{

@@ -1,12 +1,12 @@
-import { useNavigation } from '@react-navigation/core';
-import { NavigationContainer } from '@react-navigation/native';
-import axios from 'axios';
-import React, {useState, useRef, useEffect} from 'react';
-import { TextInput, StyleSheet, View, Button, Pressable, Image, ScrollView } from "react-native";
-import { createStackNavigator, createAppContainer } from 'react-native-screens';
+import { StyleSheet, View, Image, ScrollView } from "react-native";
 import { ActivityIndicator } from 'react-native-paper';
+import axios from 'axios';
+import React, {useState, useEffect} from 'react';
 
 export default function RelatorioUsuario(props){
+
+    const [redacao, setRedacao] = useState({});
+    const [inLoading, setLoadingState] = useState(true);
 
     const getRedacao = async()=>{
         let userToken = JSON.parse(localStorage.getItem('access_token'));
@@ -22,9 +22,6 @@ export default function RelatorioUsuario(props){
         setRedacao(request.data);
         setLoadingState(false);
     }
-
-    const [redacao, setRedacao] = useState({});
-    const [inLoading, setLoadingState] = useState(true);
 
     useEffect(()=>{
         getRedacao()

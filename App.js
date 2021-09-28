@@ -1,15 +1,17 @@
+import axios from 'axios';
 import * as React from 'react';
-import { Modal, StyleSheet, Text, View, Button, Image } from 'react-native';
+import { StyleSheet, View, Button, Image } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Login from './screens/Login';
+import { ActivityIndicator } from 'react-native-paper';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import HistoricoRelatorios from './screens/HistoricoRelatorios';
 import AdicionarRedacao from './screens/AdicionarRedacao'
-import { ActivityIndicator } from 'react-native-paper';
 import RelatorioUsuario from './screens/RelatorioUsuario';
-import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import axios from 'axios';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import AtualizarRedacao from './screens/AtualizarRedacao';
+import ExcluirRedacao from './screens/ExcluirRedacao';
+import Login from './screens/Login';
+
 
 const Stack = createNativeStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
@@ -88,11 +90,11 @@ export default function App({navigation}) {
 
   function Hub(){
     return(
-      <Tab.Navigator>
-        <Tab.Screen name="Historico" options={{tabBarIcon: 'text-box-multiple-outline', title:"Historico"}} component={HistoricoRelatorios}></Tab.Screen>
-        <Tab.Screen name="Criar" component={AdicionarRedacao} options={{tabBarIcon: 'file-plus-outline', title:"Criar"}}></Tab.Screen>
-        <Tab.Screen name="Atualizar" component={HistoricoRelatorios}></Tab.Screen>
-        <Tab.Screen name="Deletar" component={HistoricoRelatorios}></Tab.Screen>
+      <Tab.Navigator shifting={true}>
+        <Tab.Screen name="Historico" options={{tabBarIcon: 'text-box-multiple-outline', title:"Historico", tabBarColor:'rgb(209,3,127)'}} component={HistoricoRelatorios}></Tab.Screen>
+        <Tab.Screen name="Criar" options={{tabBarIcon: 'file-plus-outline', title:"Criar", tabBarColor:'rgb(138,2,126)'}} component={AdicionarRedacao}></Tab.Screen>
+        <Tab.Screen name="Atualizar" options={{tabBarIcon: 'file-refresh-outline', title:"Atualizar", tabBarColor:'rgb(86,1,125)'}} component={AtualizarRedacao}></Tab.Screen>
+        <Tab.Screen name="Deletar" options={{tabBarIcon: 'close', title:"Excluir", tabBarColor:'rgb(46,1,124)'}} component={ExcluirRedacao}></Tab.Screen>
       </Tab.Navigator>
     )
   }

@@ -1,31 +1,31 @@
-import axios from 'axios';
-import React, { useState, useRef, useEffect } from 'react';
-import { StyleSheet, TouchableOpacity, View, Text, Platform } from "react-native";
-import DataTable from "react-data-table-component";
+import { StyleSheet, TouchableOpacity, View, Text } from "react-native";
 import { ActivityIndicator, Button } from 'react-native-paper';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
+import { RFValue } from "react-native-responsive-fontsize";
+import React, { useState } from 'react';
 import * as DocumentPicker from 'expo-document-picker';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import axios from 'axios';
 
 export default function AdicionarRedacao(){
 
+    const [singleFile, setSingleFile] = useState('');
+    const [inLoading, setLoadingState] = useState(false);
+
     async function createFormData(file){
-        const data = new FormData();
-        await data.append("file[]",{
+        const redacao = new FormData();
+
+        await redacao.append("file[]",{
             uri: file.uri,
             type: (file.name.includes('.pdf') ? 'application/pdf' : 'image/jpeg'),
             name: file.name
         });
 
-        console.log(data['file[]']);
-        return data;
+        return redacao;
       };
-    
-    const [singleFile, setSingleFile] = useState('');
 
     const criaRedacao = async(redacao)=>{
         let userToken = JSON.parse(localStorage.getItem('access_token'));
-        console.log(redacao);
+
         await axios.post(`https://desafio.pontue.com.br/alunos/redacao/create`,
             redacao,{
             headers:{
@@ -36,10 +36,9 @@ export default function AdicionarRedacao(){
         .then(response => response.data)
         .then(data => console.log(data))
         .catch(err => console.log(err));
+
         //setLoadingState(false);
     }
-
-    const [inLoading, setLoadingState] = useState(false);
 
     const selectSingleFile = async ()=>{
         try{
@@ -49,14 +48,14 @@ export default function AdicionarRedacao(){
         }catch(err){console.log(err)}
     }
 
-    async function callFormSend(){
+    async function callRedacaoPOST(){
         let file = await createFormData(singleFile);
         console.log(file[0]);
         criaRedacao(file);
     }
 
     if(singleFile != ''){
-        callFormSend();
+        callRedacaoPOST();
     }
 
     if(inLoading){

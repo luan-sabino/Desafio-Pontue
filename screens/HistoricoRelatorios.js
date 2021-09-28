@@ -1,11 +1,13 @@
-import axios from 'axios';
-import React, { useState, useRef, useEffect } from 'react';
+import { ActivityIndicator } from 'react-native-paper';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, View } from "react-native";
+import axios from 'axios';
 import DataTable from "react-data-table-component";
-import { ActivityIndicator, Button } from 'react-native-paper';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export default function HistoricoRelatorios(props){
+
+    const [tableItems, setTableItems] = useState(null);
+    const [inLoading, setLoadingState] = useState(true);
 
     const getRedacoes = async()=>{
         let userId = JSON.parse(localStorage.getItem('aluno_id'));
@@ -23,10 +25,6 @@ export default function HistoricoRelatorios(props){
         localStorage.setItem('redacoes', JSON.stringify(request.data));
         setLoadingState(false);
     }
-
-    const [tableItems, setTableItems] = useState(null);
-    const [inLoading, setLoadingState] = useState(true);
-
 
     useEffect(()=>{
         getRedacoes()
@@ -51,10 +49,7 @@ export default function HistoricoRelatorios(props){
         }
       ];
 
-
-    console.log(props);
     function renderTableWithContent(){
-
         return(
             <DataTable
                 title="Redações"

@@ -1,11 +1,9 @@
-import axios from 'axios';
-import React, { useState, useRef, useEffect } from 'react';
-import { StyleSheet, TouchableOpacity, View, Text, Platform } from "react-native";
-import { ActivityIndicator, Button } from 'react-native-paper';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
+import React, { useState } from 'react';
+import { StyleSheet, TouchableOpacity, View, Text } from "react-native";
+import { ActivityIndicator } from 'react-native-paper';
+import { RFValue } from "react-native-responsive-fontsize";
 import { Picker } from '@react-native-picker/picker';
-import * as DocumentPicker from 'expo-document-picker';
+import axios from 'axios';
 
 export default function ExcluirRedacao(){
 
@@ -16,7 +14,9 @@ export default function ExcluirRedacao(){
 
     const excluirRedacao = async(id)=>{
         setLoadingState(true);
+
         let userToken = JSON.parse(localStorage.getItem('access_token'));
+        
         await axios.delete(`https://desafio.pontue.com.br/redacao/${id}/delete`,
             {
             headers:{
@@ -26,6 +26,7 @@ export default function ExcluirRedacao(){
         .then(response => response.data)
         .then(data => console.log(data))
         .catch(err => console.log(err));
+
         setLoadingState(false);
     }
 
