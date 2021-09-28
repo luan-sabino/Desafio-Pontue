@@ -1,11 +1,9 @@
-import { useNavigation } from '@react-navigation/core';
-import { NavigationContainer } from '@react-navigation/native';
 import axios from 'axios';
-import React, {useState, useRef, useEffect} from 'react';
-import { TextInput, StyleSheet, View, Button, Pressable } from "react-native";
-import { createStackNavigator, createAppContainer } from 'react-native-screens';
+import React, { useState, useRef, useEffect } from 'react';
+import { StyleSheet, View } from "react-native";
 import DataTable from "react-data-table-component";
-import { ActivityIndicator } from 'react-native-paper';
+import { ActivityIndicator, Button } from 'react-native-paper';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export default function HistoricoRelatorios(props){
 
@@ -34,22 +32,15 @@ export default function HistoricoRelatorios(props){
 
     const columns = [
         {
-          id: 1,
-          name: "ID",
-          keyField: (row) => row.id,
-          selector: (row) => row.id,
-          sortable: true,
-          reorder: true
-        },
-        {
           id: 2,
           name: "Numero",
+          keyField: (row) => row.id,
           selector: (row) => row.numero,
           sortable: true,
           reorder: true
         },
         {
-          id: 3,
+          id: 1,
           name: "Data",
           selector: (row) => row.created_at,
           sortable: true,
@@ -68,7 +59,6 @@ export default function HistoricoRelatorios(props){
                 columns={columns}
                 data={Object.values(tableItems)}
                 defaultSortFieldId={1}
-                sortIcon='🔽'
                 pagination
                 fixedHeader
                 fixedHeaderScrollHeight
