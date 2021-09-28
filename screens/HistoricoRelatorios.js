@@ -20,11 +20,13 @@ export default function HistoricoRelatorios(props){
         .then(data => request = data)
         .catch(err => request = false);
         setTableItems(request.data);
+        localStorage.setItem('redacoes', JSON.stringify(request.data));
         setLoadingState(false);
     }
 
     const [tableItems, setTableItems] = useState(null);
     const [inLoading, setLoadingState] = useState(true);
+
 
     useEffect(()=>{
         getRedacoes()
