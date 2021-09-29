@@ -10,7 +10,7 @@ export default function ExcluirRedacao(){
     var redacoes = JSON.parse(localStorage.getItem('redacoes'));
 
     const [inLoading, setLoadingState] = useState(false);
-    const [selectedRedacao, setSelectedRedacao] = useState();
+    const [selectedRedacao, setSelectedRedacao] = useState(redacoes[0].id);
 
     const excluirRedacao = async(id)=>{
         setLoadingState(true);
@@ -24,7 +24,7 @@ export default function ExcluirRedacao(){
             }
         })
         .then(response => response.data)
-        .then(data => console.log(data))
+        .then(data => {console.log(data); redacoes.shift();})
         .catch(err => console.log(err));
 
         setLoadingState(false);

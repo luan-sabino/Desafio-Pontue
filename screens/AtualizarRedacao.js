@@ -11,7 +11,7 @@ export default function AtualizarRedacao(){
     
     const [inLoading, setLoadingState] = useState(false);
     const [singleFile, setSingleFile] = useState('');
-    const [selectedRedacao, setSelectedRedacao] = useState();
+    const [selectedRedacao, setSelectedRedacao] = useState(redacoes[0].id);
     
     var redacoes = JSON.parse(localStorage.getItem('redacoes'));
 
@@ -43,7 +43,7 @@ export default function AtualizarRedacao(){
             }
         })
         .then(response => response.data)
-        .then(data => console.log("Success"))
+        .then(data =>{ console.log("Success"); redacoes.shift();})
         .catch(err => console.log(err));;
     }
 
